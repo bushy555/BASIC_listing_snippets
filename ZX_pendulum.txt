@@ -1,0 +1,9 @@
+2 GO SUB 9900
+10 LET f=g*SIN (a): LET aA=(-1*f)/l: LET aV=aV+aA: LET a=a+aV
+20 IF i THEN FOR n=1 TO l STEP 8: PLOT ox+n*SIN (a),oy-n*COS (a): NEXT n: PAUSE 1: FOR n=1 TO l STEP 8: PLOT ox+n*SIN (a),oy-n*COS (a): NEXT n
+21 IF NOT i THEN LET x=ox+l*SIN (a): LET y=oy-l*COS (a): PLOT x,y: PLOT xx,yy: LET xx=x: LET yy=y
+30 LET k$=INKEY$: IF k$="r" THEN BEEP 1,5: PAUSE 10: LET r=1: LET i=i+1: IF i>1 THEN LET i=0: CLS : LET a=PI/4: LET aV=0: LET aA=0: LET xx=ox: LET yy=oy
+31 IF r THEN LET r=0: CLS : PRINT OVER 0;AT 0,0;"Needs normal speed": PRINT INK 2; PAPER 7; OVER 0;AT 1,0;i: IF i THEN PRINT OVER 0;AT 0,0;"Needs speed boost "
+40 GO TO 10
+9900 LET a=PI/4: LET aV=0: LET aA=0: LET g=9.8: LET m=1: LET l=87: LET ox=127: LET oy=88: LET xx=ox: LET yy=oy: PLOT ox,oy: LET i=0: LET r=0: BORDER 0: PAPER 0: INK 6: BRIGHT 1: INVERSE 0: OVER 1: CLS : PRINT OVER 0;AT 0,0;"Needs normal speed": PRINT INK 2; PAPER 7; OVER 0;AT 1,0;i: RETURN
+9999 REM Pendulum motion at work, by Johnny McGibbitts 2022

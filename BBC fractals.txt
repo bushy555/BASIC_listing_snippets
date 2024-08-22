@@ -1,0 +1,130 @@
+https://www.bbcmicrobot.com/index.html
+
+inside room - checker.   https://bbcmic.ro/?t=9dclk
+----------------------
+
+
+10FORV=0TO255:FORU=0TO159
+15h=U/64-1:l=V/128-1.4
+20m=1/SQR(h*h+l*l+1):h=h*m:l=l*m:X=0:Y=.4:Z=-2
+25P=-Y*l-Z*m:n=h*P:o=Y+l*P:q=Z+m*P:C=n*n+o*o+q*q
+30IFC<1,g=P-SQR(1-C):X=g*h:Y=Y+g*l:Z=Z+g*m:
+35IFC<1,D=2*(X*h+Y*l+Z*m):h=h-D*X:l=l-D*Y:m=m-D*Z
+40t=-(Y-1.5*SGNl)/l:e=X+h*t:f=Z+m*t
+45S=-e*.5+f*.8:T=e*.8+f*.5
+50 r=4AND(INT(T*8)+8*INT(S))
+55 color r:set(U*8,V*4)
+60 NEXT:NEXT
+
+
+10FORV=0TO127
+15FORU=0TO63
+20x1=U/64-1:y1=V1/128-1.4
+25z1=1/SQR(x1*x1+y1*y1+1):x1=x1*z1:y1=y1*z1
+30X=0:Y=.4:Z=-2
+35P=-Y*y1-Z*z1:i1=x1*P:j1=Y+y*P:k1=Z+z1*P:C=i1*i1+j1*j1+k1*k1
+40IFC<1,w1=P-SQR(1-C):X=w1*x1:Y=Y+w1*y1:Z=Z+w1*z1:
+42IFC<1,D=2*(X*x1+Y*y1+Z*z1):x1=x1-D*X:y1=y1-D*Y:z1=z1-D*Z
+45t1=-(Y-1.5*SGN(y1))/y1:u1=X+x1*t1:v1=Z+z1*t1
+50S=-u1*.5+v1*.8:T=u1*.8+v1*.5
+55COLOR 3 AND(INT(T*8)+8*INTS)
+60SET(U1*8,V1*4)
+65NEXT:NEXT
+
+
+
+
+orange two planets on check
+----------------------------
+
+MODE1:VDU5
+FORN=8TO247:FORM=0TO319
+X=0:Y=-.1:Z=3:U=(M-159.5)/160:V=(N-127.5)/160:W=1/SQR(U*U+V*V+1):U=U*W:V=V*W:I=SGNU:G=1
+E=X-I:F=Y-I:P=U*E+V*F-W*Z:D=P*P-E*E-F*F-Z*Z+1:IFD>0T=-P-SQRD:IFT>0X=X+T*U:Y=Y+T*V:Z=Z-T*W:E=X-I:F=Y-I:G=Z:P=2*(U*E+V*F-W*G):U=U-P*E:V=V-P*F:W=W+P*G:I=-I:GOTO40
+IFV<0P=(Y+2)/V:V=-V*((INT(X-U*P)+INT(Z-W*P)AND1)/2+.3)+.2
+GCOL0,3-(48*SQRV+16*(PI*(M+17*N)-INT(PI*(M+17*N))))DIV16
+PLOT69,4*M,4*N:NEXT,
+
+
+u e
+v f
+w g
+x h
+y l
+z m
+i n
+j o
+k q
+
+5MODE1:PI=3.1415927
+10FORN=0TO127:FORM=0TO63:X=0:Y=-.1:Z=3:U=(M-63.5)/63
+123456789012345678901234567890123456789012345678901234567890
+20V=(N-63.5)/63:W=1/SQR(U*U+V*V+1):U=U*W:V=V*W:I=SGN(U):G=1
+30E=X-I:F=Y-I:P=U*E+V*F-W*Z:D=P*P-E*E-F*F-Z*Z+1:
+40IFD>0T=-P-SQRD:IFT>0X=X+T*U:Y=Y+T*V:Z=Z-T*W:E=X-I:F=Y-I:G=Z:
+45IFD>0P=2*(U*E+V*F-W*G):U=U-P*E:V=V-P*F:W=W+P*G:I=-I:GOTO30
+50IFV<0P=(Y+2)/V:V=-V*((INT(X-U*P)+INT(Z-W*P)AND1)/2+.3)+.2
+60color,3-(48*SQRV+16*(pi*(M+17*N)-INT(PI*(M+17*N))))/16
+70 set (4*M,4*N):NEXT:NEXT
+
+
+
+
+WOLF3D
+---------
+FORU=0TO1279STEP4
+s=U/1280-.5:t=.7
+x=s*.9-t*.4:y=s*.4+t*.9
+I=8:J=-6:i=SGNx:j=SGNy
+S=1/ABSx
+T=1/ABSy
+s=(-.5*i-(x>0))*S
+t=-(y>0)*T
+MOVEU,0:C=0
+REPEAT
+d=s>t
+IFd H=t:t=t+T:J=J+j ELSEH=s:s=s+S:I=I+i
+P=POINT(I*4,1023+J*4)
+a=-180/H
+GCOL0,C:C=3EORC
+DRAWU,512+a*4
+UNTIL-P
+b=240/H
+FORk=INTa TOINTb
+u=31AND(I+x*H+J+y*H)*32
+v=7AND((k-a)/(b-a))*32
+IFv>3u=u+4
+C=1-((3ANDv)=0OR(7ANDu)=0)
+IFd C=3-C
+GCOL0,C
+DRAWU,512+k*4
+NEXT,
+
+
+
+
+10FORU=0TO127STEP2
+11s=U/128-.5:t=.7:x=s*.9-t*.4:y=s*.4+t*.9
+13I=8:J=-6:i=SGNx:j=SGNy
+14S=1/ABS(x):T=1/ABS(y)
+16s=(-.5*i-(x>0))*S:t=-(y>0)*T
+18 C=0:' MOVEU,0:C=0
+19 d=s>t
+20IFd H=t:t=t+T:J=J+j ELSEH=s:s=s+S:I=I+i
+21P=POINT(I*4,J*4):a=-180/H
+23GCOL0,C:C=3EORC
+24plot (U,10+a*4)TO(U,0)
+25 IF p<0,30else18
+30b=240/H
+31FORk=INT(a) TOINT(b)
+32u=31AND(I+x*H+J+y*H)*32
+33v=7AND((k-a)/(b-a))*32
+34IFv>3u=u+4
+35C=1-((3ANDv)=0OR(7ANDu)=0)
+36IFd,C=3-C
+37color C
+38 plot(U,10+k*4)to(u,0)
+40 NEXT:next
+50goto50
+
+
